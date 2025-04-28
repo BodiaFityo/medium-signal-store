@@ -4,10 +4,13 @@
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <h1 class="text-xs-center">Sign up</h1>
                 <p class="text-xs-center">
-                    <a routerLink="/login">Have an account?</a>
+                    <a routerLink="/login">Have an account? </a>
                 </p>
 
                 <!-- Errors Block -->
+                @if (validationErrors()) {
+                    <mds-backend-errors [errors]="validationErrors()"></mds-backend-errors>
+                }
 
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <fieldset class="form-group">
@@ -34,10 +37,7 @@
                             placeholder="Password"
                         />
                     </fieldset>
-                    <button
-                        type="submit"
-                        class="btn btn-lg btn-primary pull-xs-right"
-                    >
+                    <button type="submit" class="btn btn-lg btn-primary pull-xs-right" [disabled]="isSubmitting()">
                         Sign up
                     </button>
                 </form>

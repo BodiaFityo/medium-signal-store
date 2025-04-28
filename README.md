@@ -10,6 +10,14 @@ To start a local development server, run:
 ng serve
 ```
 
+## Proxy Development server
+
+To start a local development server with proxy, run:
+
+```bash
+ng serve --proxy-config proxy.conf.json
+```
+
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding

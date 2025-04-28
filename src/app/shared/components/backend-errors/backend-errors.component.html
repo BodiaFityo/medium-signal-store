@@ -1,0 +1,9 @@
+@if (messages()) {
+    <ul class="error-messages">
+        @for (errorMessage of messages(); track errorMessage) {
+            <li>
+                {{ errorMessage }}
+            </li>
+        }
+    </ul>
+}
