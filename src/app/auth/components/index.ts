@@ -1,1 +1,2 @@
-export * from './register/register.component';
+export * from './register';
+export * from './login';

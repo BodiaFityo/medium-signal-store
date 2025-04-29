@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthStore } from '../../store';
 import { IRegisterRequest } from '../../models';
 import { BackendErrorsComponent } from '../../../shared';
+import { AuthValidationService } from '../../services';
 
 @Component({
     selector: 'mds-register',
@@ -17,6 +18,7 @@ import { BackendErrorsComponent } from '../../../shared';
 export class RegisterComponent implements OnInit {
     readonly #fb = inject(FormBuilder);
     readonly #authStore = inject(AuthStore);
+    readonly #authValidationService = inject(AuthValidationService);
     readonly #router = inject(Router);
 
     readonly registerFormField = RegisterFormField;
@@ -35,13 +37,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit(): void {
         this._initForm();
-    }
-
-    onSubmit() {
-        const registerUser: IRegisterRequest = {
-            user: this.registerForm.getRawValue(),
-        };
-        this.#authStore.registerUser(registerUser);
+        this._clearValidationErrors();
     }
 
     private _initForm(): void {
@@ -56,5 +52,18 @@ export class RegisterComponent implements OnInit {
                 nonNullable: true,
             }),
         });
+    }
+
+    private _clearValidationErrors(): void {
+        if (this.validationErrors()) {
+            this.#authValidationService.clearValidationErrors();
+        }
+    }
+
+    onSubmit() {
+        const registerUser: IRegisterRequest = {
+            user: this.registerForm.getRawValue(),
+        };
+        this.#authStore.registerUser(registerUser);
     }
 }

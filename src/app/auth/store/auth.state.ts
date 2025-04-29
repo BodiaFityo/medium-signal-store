@@ -2,10 +2,11 @@ import { signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/
 
 import { computed, inject } from '@angular/core';
 import { immerPatchState } from 'ngrx-immer/signals';
-import { IAuthState, IRegisterRequest } from '../models';
-import { AuthService } from '../services/auth.service';
+import { IAuthState, ILoginRequest, IRegisterRequest } from '../models';
+
 import { ICurrentUser, PersistanceService, StorageKey } from '../../shared';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../services';
 
 export const initAuthState: IAuthState = {
     currentUser: null,
@@ -45,6 +46,36 @@ export function withAuthState() {
                                 state.validationErrors = error.error.errors;
                             });
                         },
+                    });
+                },
+                loginUser(dto: ILoginRequest) {
+                    immerPatchState(store, (state: IAuthState) => {
+                        state.isLoading = true;
+                        state.isSubmitting = true;
+                    });
+                    authService.login(dto).subscribe({
+                        next: (user: ICurrentUser) => {
+                            immerPatchState(store, (state: IAuthState) => {
+                                state.currentUser = user;
+                                state.isLoading = false;
+                                state.isSubmitting = false;
+                                state.validationErrors = null;
+                            });
+                            persistanceService.set(StorageKey.accessToken, user.token);
+                        },
+                        error: (error: HttpErrorResponse) => {
+                            console.error(error);
+                            immerPatchState(store, (state: IAuthState) => {
+                                state.isLoading = false;
+                                state.isSubmitting = false;
+                                state.validationErrors = error.error.errors;
+                            });
+                        },
+                    });
+                },
+                clearValidationErrors() {
+                    immerPatchState(store, (state: IAuthState) => {
+                        state.validationErrors = null;
                     });
                 },
             };

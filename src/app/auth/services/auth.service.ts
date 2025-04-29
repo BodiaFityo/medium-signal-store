@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IRegisterRequest } from '../models';
+import { ILoginRequest, IRegisterRequest } from '../models';
 import { Observable, map } from 'rxjs';
 import { ICurrentUser } from '../../shared';
 import { IAuthResponse } from '../models/auth-response.interfaces';
@@ -9,10 +9,21 @@ import { IAuthResponse } from '../models/auth-response.interfaces';
     providedIn: 'root',
 })
 export class AuthService {
-    private http = inject(HttpClient);
+    private _http = inject(HttpClient);
+
     register(dto: IRegisterRequest): Observable<ICurrentUser> {
         const url = 'http://localhost:3000/api/users';
 
-        return this.http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
+        return this._http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
+    }
+
+    login(dto: ILoginRequest): Observable<ICurrentUser> {
+        // const user = {
+        //     email: 'test9@gmail.com',
+        //     password: 12345678
+        // }
+        const url = 'http://localhost:3000/api/users/login';
+
+        return this._http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
     }
 }
