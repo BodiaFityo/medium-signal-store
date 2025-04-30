@@ -1,1 +1,2 @@
-export * from './backend-errors/backend-errors.component';
+export * from './backend-errors';
+export * from './nav-bar';

@@ -73,6 +73,29 @@ export function withAuthState() {
                         },
                     });
                 },
+                getCurrentUser() {
+                    //if we don't have stored token, then we should not load currentUser
+                    if (!persistanceService.get(StorageKey.accessToken)) {
+                        return;
+                    }
+                    immerPatchState(store, (state: IAuthState) => {
+                        state.isLoading = true;
+                        state.isSubmitting = false;
+                    });
+                    authService.getCurrentUser().subscribe({
+                        next: (user: ICurrentUser) => {
+                            immerPatchState(store, (state: IAuthState) => {
+                                state.currentUser = user;
+                                state.isLoading = false;
+                                state.isSubmitting = false;
+                                state.validationErrors = null;
+                            });
+                        },
+                        error: (error: HttpErrorResponse) => {
+                            console.error(error);
+                        },
+                    });
+                },
                 clearValidationErrors() {
                     immerPatchState(store, (state: IAuthState) => {
                         state.validationErrors = null;
@@ -83,7 +106,8 @@ export function withAuthState() {
         withComputed((store) => ({
             isSubmitting: computed(() => store.isSubmitting()),
             authErrorMessages: computed(() => store.validationErrors()),
-            isUserRegistred: computed(() => store.currentUser()?.token),
+            currentUser: computed(() => store.currentUser()),
+            isUserRegistred: computed(() => !!store.currentUser()?.token),
         })),
     );
 }

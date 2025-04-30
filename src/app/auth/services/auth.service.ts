@@ -18,12 +18,14 @@ export class AuthService {
     }
 
     login(dto: ILoginRequest): Observable<ICurrentUser> {
-        // const user = {
-        //     email: 'test9@gmail.com',
-        //     password: 12345678
-        // }
         const url = 'http://localhost:3000/api/users/login';
 
         return this._http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
+    }
+
+    getCurrentUser(): Observable<ICurrentUser> {
+        const url = 'http://localhost:3000/api/user';
+
+        return this._http.get<IAuthResponse>(url).pipe(map(({ user }) => user));
     }
 }
