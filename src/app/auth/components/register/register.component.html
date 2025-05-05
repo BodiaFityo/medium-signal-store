@@ -1,5 +1,5 @@
-<div class="auth-page">
-    <div class="container page">
+<div class="register-page">
+    <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <h1 class="text-xs-center">Sign up</h1>
@@ -15,6 +15,11 @@
                     <fieldset class="form-group">
                         <input
                             [formControlName]="registerFormField.username"
+                            [ngClass]="{
+                                'register-page__invalid':
+                                    registerForm.get(registerFormField.username)?.invalid &&
+                                    registerForm.get(registerFormField.username)?.touched,
+                            }"
                             class="form-control form-control-lg"
                             type="text"
                             placeholder="Username"
@@ -23,6 +28,11 @@
                     <fieldset class="form-group">
                         <input
                             [formControlName]="registerFormField.email"
+                            [ngClass]="{
+                                'register-page__invalid':
+                                    registerForm.get(registerFormField.email)?.invalid &&
+                                    registerForm.get(registerFormField.email)?.touched,
+                            }"
                             class="form-control form-control-lg"
                             type="text"
                             placeholder="Email"
@@ -31,12 +41,21 @@
                     <fieldset class="form-group">
                         <input
                             [formControlName]="registerFormField.password"
+                            [ngClass]="{
+                                'register-page__invalid':
+                                    registerForm.get(registerFormField.password)?.invalid &&
+                                    registerForm.get(registerFormField.password)?.touched,
+                            }"
                             class="form-control form-control-lg"
                             type="password"
                             placeholder="Password"
                         />
                     </fieldset>
-                    <button type="submit" class="btn btn-lg btn-primary pull-xs-right" [disabled]="isSubmitting()">
+                    <button
+                        type="submit"
+                        class="btn btn-lg btn-primary pull-xs-right"
+                        [disabled]="isSubmitting() || isFormDisabled"
+                    >
                         Sign up
                     </button>
                 </form>

@@ -1,5 +1,5 @@
-<div class="auth-page">
-    <div class="container page">
+<div class="login-page">
+    <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <h1 class="text-xs-center">Sign in</h1>
@@ -14,7 +14,12 @@
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <fieldset class="form-group">
                         <input
-                            formControlName="email"
+                            [formControlName]="loginFormField.email"
+                            [ngClass]="{
+                                'login-page__invalid':
+                                    loginForm.get(loginFormField.email)?.invalid &&
+                                    loginForm.get(loginFormField.email)?.touched,
+                            }"
                             class="form-control form-control-lg"
                             type="text"
                             placeholder="Email"
@@ -22,13 +27,20 @@
                     </fieldset>
                     <fieldset class="form-group">
                         <input
-                            formControlName="password"
+                            [formControlName]="loginFormField.password"
+                            [ngClass]="{
+                                'login-page__invalid':
+                                    loginForm.get(loginFormField.password)?.invalid &&
+                                    loginForm.get(loginFormField.password)?.touched,
+                            }"
                             class="form-control form-control-lg"
                             type="password"
                             placeholder="Password"
                         />
                     </fieldset>
-                    <button [disabled]="isSubmitting()" class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
+                    <button [disabled]="isSubmitting() || isFormDisabled" class="btn btn-lg btn-primary pull-xs-right">
+                        Sign in
+                    </button>
                 </form>
             </div>
         </div>

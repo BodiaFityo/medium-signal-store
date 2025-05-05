@@ -2,30 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ILoginRequest, IRegisterRequest } from '../models';
 import { Observable, map } from 'rxjs';
-import { ICurrentUser } from '../../shared';
+import { ApiEndpoint, ICurrentUser } from '../../shared';
 import { IAuthResponse } from '../models/auth-response.interfaces';
+import { environments } from '../../../environments';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private _http = inject(HttpClient);
+    readonly #http = inject(HttpClient);
+
+    readonly apiUrl = environments['apiUrl'];
 
     register(dto: IRegisterRequest): Observable<ICurrentUser> {
-        const url = 'http://localhost:3000/api/users';
+        const url = `${this.apiUrl}${ApiEndpoint.Register}`;
 
-        return this._http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
+        return this.#http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
     }
 
     login(dto: ILoginRequest): Observable<ICurrentUser> {
-        const url = 'http://localhost:3000/api/users/login';
+        const url = `${this.apiUrl}${ApiEndpoint.Login}`;
 
-        return this._http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
+        return this.#http.post<IAuthResponse>(url, dto).pipe(map(({ user }) => user));
     }
 
     getCurrentUser(): Observable<ICurrentUser> {
-        const url = 'http://localhost:3000/api/user';
+        const url = `${this.apiUrl}${ApiEndpoint.CurrentUser}`;
 
-        return this._http.get<IAuthResponse>(url).pipe(map(({ user }) => user));
+        return this.#http.get<IAuthResponse>(url).pipe(map(({ user }) => user));
     }
 }
