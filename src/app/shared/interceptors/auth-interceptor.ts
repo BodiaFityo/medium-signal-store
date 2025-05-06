@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 export const authInterceptor = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
     const persistanceService = inject(PersistanceService);
-    const token = persistanceService.get(StorageKey.accessToken);
+    const token = persistanceService.get(StorageKey.AccessToken);
     const newRequest = request.clone({
         setHeaders: {
             Authorization: token ? `Token ${token}` : '',

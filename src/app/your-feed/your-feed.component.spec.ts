@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopularTagComponent } from './popular-tag.component';
+import { YourFeedComponent } from './your-feed.component';
 
-describe('PopularTagComponent', () => {
-    let component: PopularTagComponent;
-    let fixture: ComponentFixture<PopularTagComponent>;
+describe('YourFeedComponent', () => {
+    let component: YourFeedComponent;
+    let fixture: ComponentFixture<YourFeedComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PopularTagComponent],
+            imports: [YourFeedComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(PopularTagComponent);
+        fixture = TestBed.createComponent(YourFeedComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,0 +1,40 @@
+<div class="feed-toggle">
+    <ul class="nav nav-pills outline-active">
+        @if (currentUser()) {
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    routerLink="/feed"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    >{{ feedTogglerRouteName.YourFeed }}</a
+                >
+            </li>
+        }
+
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                routerLink="/"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                queryParamsHandling="merge"
+                >{{ feedTogglerRouteName.GlobalFeed }}</a
+            >
+        </li>
+
+        @if (tagName()) {
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    [routerLink]="['/tags', tagName()]"
+                    routerLinkActive="router-link-active"
+                    routerLinkActive="active"
+                >
+                    <i class="ion-pound"></i>
+                    {{ tagName() }}
+                </a>
+            </li>
+        }
+    </ul>
+</div>

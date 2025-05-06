@@ -6,6 +6,14 @@ export const routes: Routes = [
         loadChildren: () => import('./home-feed').then((m) => m.homeFeedRoutes),
     },
     {
+        path: 'feed',
+        loadChildren: () => import('./your-feed').then((m) => m.yourFeedRoutes),
+    },
+    {
+        path: 'tags/:slug',
+        loadChildren: () => import('./tag-feed').then((m) => m.tagFeedRoutes),
+    },
+    {
         path: 'register',
         loadChildren: () => import('./auth').then((m) => m.registerRoutes),
     },

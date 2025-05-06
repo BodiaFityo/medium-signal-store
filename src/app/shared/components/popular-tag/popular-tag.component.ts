@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject } from '@angular/core';
 import { PopularTagStore } from './store';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading';
@@ -9,8 +9,9 @@ import { ErrorMessageComponent } from '../error-message';
     imports: [RouterLink, LoadingComponent, ErrorMessageComponent],
     templateUrl: './popular-tag.component.html',
     styleUrl: './popular-tag.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PopularTagsComponent implements OnInit {
+export class PopularTagComponent implements OnInit {
     readonly #popularTagStore = inject(PopularTagStore);
 
     readonly popularTags = this.#popularTagStore.popularTags;

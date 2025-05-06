@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopularTagComponent } from './popular-tag.component';
+import { FeedTogglerComponent } from './feed-toggler.component';
 
-describe('PopularTagComponent', () => {
-    let component: PopularTagComponent;
-    let fixture: ComponentFixture<PopularTagComponent>;
+describe('FeedTogglerComponent', () => {
+    let component: FeedTogglerComponent;
+    let fixture: ComponentFixture<FeedTogglerComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PopularTagComponent],
+            imports: [FeedTogglerComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(PopularTagComponent);
+        fixture = TestBed.createComponent(FeedTogglerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
