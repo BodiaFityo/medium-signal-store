@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <p>Popular Tags</p>
+    @if (isLoading()) {
+        <mds-loading></mds-loading>
+    }
+    @if (error()) {
+        <mds-error-message [message]="error()"></mds-error-message>
+    }
+    @if (popularTags()) {
+        <div class="tag-list">
+            @for (popularTag of popularTags(); track popularTag) {
+                <a [routerLink]="['/tags', popularTag]" class="tag-pill tag-default">{{ popularTag }}</a>
+            }
+        </div>
+    }
+</div>

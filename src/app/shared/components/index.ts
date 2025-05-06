@@ -6,3 +6,4 @@ export * from './error-message';
 export * from './loading';
 export * from './pagination';
 export * from './tag-list';
+export * from './popular-tag';
