@@ -1,6 +1,7 @@
 import { IProfile } from './profile.interfaces';
 
 export interface IArticle {
+    id: string;
     slug: string;
     title: string;
     description: string;
