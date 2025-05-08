@@ -36,7 +36,7 @@ export function withAuthState() {
                                 state.isSubmitting = false;
                                 state.validationErrors = null;
                             });
-                            persistanceService.set(StorageKey.accessToken, user.token);
+                            persistanceService.set(StorageKey.AccessToken, user.token);
                         },
                         error: (error: HttpErrorResponse) => {
                             console.error(error);
@@ -61,7 +61,7 @@ export function withAuthState() {
                                 state.isSubmitting = false;
                                 state.validationErrors = null;
                             });
-                            persistanceService.set(StorageKey.accessToken, user.token);
+                            persistanceService.set(StorageKey.AccessToken, user.token);
                         },
                         error: (error: HttpErrorResponse) => {
                             console.error(error);
@@ -75,7 +75,7 @@ export function withAuthState() {
                 },
                 getCurrentUser() {
                     //if we don't have stored token, then we should not load currentUser
-                    if (!persistanceService.get(StorageKey.accessToken)) {
+                    if (!persistanceService.get(StorageKey.AccessToken)) {
                         return;
                     }
                     immerPatchState(store, (state: IAuthState) => {

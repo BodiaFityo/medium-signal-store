@@ -70,3 +70,10 @@ For more information on using the Angular CLI, including detailed command refere
 
 email: 'test9@gmail.com',
 password: 12345678
+"user": {
+"email": "test12@gmail.com",
+"username": "baz22",
+"password": 12345678
+}
+
+    johnjacob

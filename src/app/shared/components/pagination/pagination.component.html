@@ -1,0 +1,7 @@
+<ul class="pagination">
+    @for (page of totalPages(); track page) {
+        <li class="page-item" [ngClass]="{ active: page === currentPage() }">
+            <a class="page-link" [routerLink]="url()" [queryParams]="{ page: page }">{{ page }}</a>
+        </li>
+    }
+</ul>

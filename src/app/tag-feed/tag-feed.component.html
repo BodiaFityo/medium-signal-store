@@ -1,0 +1,14 @@
+<div class="home-page">
+    <mds-banner></mds-banner>
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-9">
+                <mds-feed-toggler [tagName]="tagName()"></mds-feed-toggler>
+                <mds-feed [apiUrl]="apiUrl()"></mds-feed>
+            </div>
+            <div class="col-md-3">
+                <mds-popular-tag></mds-popular-tag>
+            </div>
+        </div>
+    </div>
+</div>

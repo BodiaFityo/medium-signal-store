@@ -1,0 +1,33 @@
+@for (article of articles(); track article) {
+    @if (isLoading()) {
+        <mds-loading></mds-loading>
+    }
+
+    @if (error()) {
+        <mds-error-message [message]="error()"></mds-error-message>
+    }
+    <div class="article-preview">
+        <div class="article-meta">
+            <a [routerLink]="['/profiles', article.author.username]"><img [src]="article.author.image" /></a>
+            <div class="info">
+                <a [routerLink]="['/profiles', article.author.username]" class="author">{{
+                    article.author.username
+                }}</a>
+                <span class="date">{{ article.createdAt }}</span>
+            </div>
+            <div class="pull-xs-right">ADD TO FAVORITES</div>
+        </div>
+        <a [routerLink]="['/article', article.slug]" class="preview-link">
+            <h1>{{ article.title }}</h1>
+            <p>{{ article.description }}</p>
+            <span>Read more...</span>
+            <mds-tag-list [tagList]="article.tagList"></mds-tag-list>
+        </a>
+    </div>
+}
+<mds-pagination
+    [total]="articlesCount()"
+    [limit]="limit"
+    [currentPage]="currentPage()"
+    [url]="baseUrl()"
+></mds-pagination>
