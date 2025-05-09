@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environments } from '../../../environments';
-import { ApiEndpoint, IArticle } from '../../shared';
-import { IArticleResponse } from '../models';
+import { ApiEndpoint, IArticle, IArticleResponse } from '../../shared';
 
 @Injectable({
     providedIn: 'root',

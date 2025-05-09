@@ -1,0 +1,55 @@
+
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        @if(errors()) {
+          <mds-backend-errors [errors]="errors()"></mds-backend-errors>
+        }
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+            <fieldset class="form-group">
+              <input
+                [formControlName]="articleFormField.title"
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Article Title"
+              />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                [formControlName]="articleFormField.description"
+                type="text"
+                class="form-control"
+                placeholder="What's this article about?"
+              />
+            </fieldset>
+            <fieldset class="form-group">
+                            <textarea
+                              [formControlName]="articleFormField.body"
+                              class="form-control"
+                              rows="8"
+                              placeholder="Write your article (in markdown)"
+                            ></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                [formControlName]="articleFormField.tagList"
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Enter tags"
+              />
+            </fieldset>
+
+            <button
+              class="btn btn-lg pull-xs-right btn-primary"
+              [disabled]="articleForm.invalid || isSubmitting()"
+            >
+              Publish Article
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { signalStoreFeature, withComputed, withMethods, withState } from '@ngrx/signals';
+import { signalStoreFeature, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
 import { IArticleState } from '../models';
 import { ArticleService } from '../services';
 import { computed, inject } from '@angular/core';
@@ -14,15 +14,16 @@ export const initState: IArticleState = {
 export function withArticleState() {
     return signalStoreFeature(
         withState<IArticleState>(initState),
+        withProps(() => ({
+            _articleService: inject(ArticleService),
+        })),
         withMethods((store) => {
-            const articleService = inject(ArticleService);
-
             return {
                 getArticle(slug: string) {
                     immerPatchState(store, (state: IArticleState) => {
                         state.isLoading = true;
                     });
-                    articleService.getArticle(slug).subscribe({
+                    store._articleService.getArticle(slug).subscribe({
                         next: (article) => {
                             immerPatchState(store, (state: IArticleState) => {
                                 state.isLoading = false;
@@ -33,7 +34,7 @@ export function withArticleState() {
                         error: (error: HttpErrorResponse) => {
                             immerPatchState(store, (state: IArticleState) => {
                                 state.isLoading = false;
-                                state.error = error.error.error;
+                                state.error = error.error.errors;
                             });
                         },
                     });
